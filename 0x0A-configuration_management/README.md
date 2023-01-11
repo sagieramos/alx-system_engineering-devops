@@ -11,5 +11,5 @@
  11 | Filename | Description |
  12 | -------- | ----------- |
  13 | `0-create_a_file.pp` | Create a file in `/tmp` |
- 14 | `1-install_a_package.pp` | Install `puppet-lint` |
+ 14 | `1-install_a_package.pp` | Install `flask` |
  15 | `2-execute_a_command.pp` | Create a manifest that kills a process named `killmeno    w` |
