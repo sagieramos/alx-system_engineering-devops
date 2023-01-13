@@ -8,4 +8,4 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 # nginx listens to port 80 by default
 echo 'Hello WOrld!' > /var/www/html/index.html
-service nginx start
+service nginx restart
