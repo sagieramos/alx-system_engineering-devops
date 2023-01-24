@@ -1,35 +1,21 @@
 #!/usr/bin/env bash
-# Displays informtation about subdomains.
+# Show information about subdomains in servers
+print_domain () {
+    result=$(dig "$1"."$2" | awk '/;; ANSWER SECTION:/{getline; print;}')
+    echo -n "The subdomain $1 is a "
+    record=$(echo "$result" | rev | cut -f2 | rev )
+    echo -n "$record record and points to "
+    echo "$result" | rev | cut -f1 | rev
+    return 0
 
-# uncomment for debugging purposes.
-#set -x
-
-# for the checker to work please remove the colors.
-
-# colors
-blue='\e[1;34m'
-brown='\e[0;33m'
-reset='\033[0m'
-
-# variables & parameters
-subdomains=( "www" "lb-01" "web-01" "web-02" )
-domain="$1"
-sub="$2"
-
-dig_cmd () {
-	# func variables
-	sub="$2"
-	INFO="$(dig "$sub.$domain" | grep -A1 'ANSWER SECTION:' | awk 'NR==2')"
-	IP=$(echo "$INFO" | awk '{print $5}')
-	RECORD=$(echo "$INFO" | awk '{print $4}')
-
-	echo -e "${brown}The subdomain ${blue}$sub${brown} is a ${blue}$RECORD${brown} record and points to ${blue}$IP${reset}"
 }
-
-if [ $# -eq 1 ]; then
-	for subs in "${subdomains[@]}"; do
-		dig_cmd "$domain" "$subs"
-	done
-elif [ $# -eq 2 ]; then
-	dig_cmd "$domain" "$sub"
+if [ $# -eq 1 ]
+then
+    domain_array=(www lb-01 web-01 web-02)
+    for i in "${domain_array[@]}"
+    do
+	print_domain "$i" "$1"
+    done
+else
+    print_domain "$2" "$1"
 fi
