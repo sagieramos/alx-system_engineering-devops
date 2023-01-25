@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
-# Show information about subdomains in servers
-print_domain () {
-    result=$(dig "$1"."$2" | awk '/;; ANSWER SECTION:/{getline; print;}')
-    echo -n "The subdomain $1 is a "
-    record=$(echo "$result" | rev | cut -f2 | rev )
-    echo -n "$record record and points to "
-    echo "$result" | rev | cut -f1 | rev
-    return 0
+# display information about subdomains
 
-}
-if [ $# -eq 1 ]
-then
-    domain_array=(www lb-01 web-01 web-02)
-    for i in "${domain_array[@]}"
-    do
-	print_domain "$i" "$1"
-    done
+subdomains=( "www" "lb-01" "web-01" "web-02" )
+
+if [ $# -eq 2 ]; then
+   dig "$2.$1" | grep -A1 'ANSWER SECTION:' | grep -v 'ANSWER' | awk -v subd="$2" '{print "The subdomain "subd" is a "$4" record and points to "$5}'
 else
-    print_domain "$2" "$1"
+	for index in "${subdomains[@]}"; do
+	    	  dig "$index.$1" | grep -A1 'ANSWER SECTION:' | grep -v 'ANSWER' | awk -v subd="$index" '{print "The subdomain "subd" is a "$4" record and points to "$5}'
+ 	done
 fi
