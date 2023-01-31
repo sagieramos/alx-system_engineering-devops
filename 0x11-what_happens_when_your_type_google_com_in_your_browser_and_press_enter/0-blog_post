@@ -8,17 +8,11 @@ Next, the browser establishes a secure connection with the server using HTTPS/SS
 
 Once the secure connection is established, the browser sends an HTTP GET request to the Google server, asking it to send the homepage HTML file. The request is then passed through a load balancer which distributes the traffic among multiple servers.
 
-The request is then handled by the web server, which may also forward it to an application server that handles more complex logic. The application server may then query a database to retrieve any necessary data before sending back the HTML file.
+The request is then handled by the web server, which may also forward it to an application server (like Apache Tomcat) that handles more complex logic. The application server may then query a database to retrieve any necessary data before sending back the HTML file.
 
 Finally, the browser receives the HTML file, renders it, and displays the Google homepage on your screen, complete with images, text, and links. This entire process happens quickly, often in less than a second, making it seem almost instantaneous to the user.
 
-In summary, typing "https://www.google.com" into your browser and pressing Enter triggers a series of steps involving DNS resolution, TCP/IP connection, firewall, HTTPS/SSL, load-balancer, web server, application server and database, ultimately resulting in the Google homepage being displayed on your screen.
-
-After setting up a secure connection, the browser will issue an HTTP GET request to the Google server to ask for the HTML file for the homepage. Then, the load balancer comes into play and distributes the traffic over multiple servers. Afterwards, the web server will take over the request and may forward it to an application server for more complicated logic. The application server may make inquiries to a database to obtain the necessary data before giving back the HTML file. 
-
-Finally, the browser receives the HTML file, interprets it and shows the Google homepage on the screen with all images, text and links. This whole process usually takes under a second, making it seem almost instantaneous for the user. 
-
-Typing "https://www.google.com" into the browser and pressing Enter sets off a sequence of steps including:
+Typing "https://www.google.com" into the browser and pressing Enter sets off a sequence of steps which include:
 
 DNS resolution, 
 TCP/IP connection, 
